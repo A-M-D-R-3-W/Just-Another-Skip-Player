@@ -32,7 +32,7 @@
 ---
 
 ## ✨ Features
-
+Click Settings once for audio tracks Hold for settings
 <table>
 <tr>
 <td width="50%">
