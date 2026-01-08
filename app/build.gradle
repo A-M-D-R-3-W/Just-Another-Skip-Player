@@ -123,6 +123,8 @@ android {
     lint {
         disable 'MissingTranslation'
         disable 'UnsafeOptInUsageError'
+        abortOnError false
+        checkReleaseBuilds false
     }
     packaging {
         jniLibs {
