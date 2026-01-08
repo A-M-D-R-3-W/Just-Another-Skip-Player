@@ -498,7 +498,6 @@ public class PlayerActivity extends Activity {
                         showUpdateDialog(updateInfo);
                     }
                 }
-                return null;
             });
         }
 
