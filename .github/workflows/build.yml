@@ -74,18 +74,22 @@ jobs:
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: v${{ steps.version.outputs.VERSION_NAME }}-build.${{ github.run_number }}
-        name: "🎬 JASP v${{ steps.version.outputs.VERSION_NAME }} (Build #${{ github.run_number }})"
+        tag_name: v${{ steps.version.outputs.VERSION_NAME }}
+        name: "🎬 JASP v${{ steps.version.outputs.VERSION_NAME }}"
         body: |
           # 🎬 Just Another Skip Player v${{ steps.version.outputs.VERSION_NAME }}
           
-          **Build #${{ github.run_number }}** • Commit: `${{ github.sha }}`
+          ### 🔄 In-App Updater
+          - **Automatic Update Checks** - App checks for updates on launch (configurable)
+          - **Manual Update Check** - Check anytime from Settings → App Updates
+          - **One-Tap Install** - Download and install updates directly from the app
+          - **Variant-Aware** - Automatically downloads the correct APK (JASP or Just Player)
+          - **Skip Version** - Press "Later" to skip a version and not be prompted again
           
-          ---
-          
-          ## 📋 What's Changed
-          
-          ${{ steps.commit.outputs.message }}
+          ### 🎨 Fixed Branding
+          - **Proper Variant Detection** - App correctly identifies JASP vs Just Player
+          - **Consistent Naming** - Update dialogs show correct app name for your variant
+          - **Logo Support** - Each variant displays its own icon in update prompts
           
           ---
           
@@ -103,13 +107,17 @@ jobs:
           
           ---
           
-          ## ✨ Features
+          ## ✨ All Features
           
-          - 🎯 **5-Tier Intro Skip** - AnimeSkip → SkipDB → IntroHater → AniSkip → IntroDB
-          - 📊 **Trakt Scrobbling** - Auto-track your watch history  
-          - 🌐 **Remote Web UI** - Submit intro timestamps from your phone
-          - 🎥 **Format Support** - HEVC, HDR10, Dolby Vision, Atmos, DTS:X
-          - 📺 **Android TV Ready** - Full controller and remote navigation
+          | Category | Features |
+          |----------|----------|
+          | 🎯 **Intro Skipping** | 5-Tier system: AnimeSkip → SkipDB → IntroHater → AniSkip → IntroDB |
+          | 🔄 **In-App Updates** | Auto-check, manual check, one-tap install, variant-aware |
+          | 📊 **Trakt Scrobbling** | Auto-track your watch history with OAuth |
+          | 🌐 **Remote Web UI** | Submit intro timestamps from your phone |
+          | 🎥 **Format Support** | HEVC, HDR10, Dolby Vision, Atmos, DTS:X |
+          | 📺 **Android TV** | Full D-pad/controller navigation |
+          | 👻 **Jump Scare Filter** | Optional warnings for horror content |
           
           ---
           
@@ -117,6 +125,7 @@ jobs:
           
           | Feature | Requirements |
           |---------|--------------|
+          | In-App Updates | Enabled by default, toggle in Settings |
           | IntroHater | API key from introhater.com |
           | IntroDB | API key from introdb.app |
           | Trakt | OAuth setup in settings |
