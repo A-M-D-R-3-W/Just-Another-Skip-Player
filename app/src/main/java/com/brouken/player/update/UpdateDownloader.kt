@@ -74,7 +74,7 @@ class UpdateDownloader(private val context: Context) {
             
         } catch (e: Exception) {
             Log.e(TAG, "Download failed", e)
-            onComplete(false)
+            onComplete.onComplete(false)
         }
     }
     
