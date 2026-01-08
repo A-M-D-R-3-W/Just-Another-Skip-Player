@@ -236,43 +236,22 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         private void showUpdateDialog(com.brouken.player.update.UpdateInfo updateInfo) {
-            boolean isTV = requireContext().getPackageManager().hasSystemFeature("android.software.leanback");
-            
-            if (isTV) {
-                // Show TV fullscreen fragment
-                com.brouken.player.update.UpdateTvFragment tvFragment = 
-                    com.brouken.player.update.UpdateTvFragment.Companion.newInstance(
-                        updateInfo,
-                        () -> {
-                            // Download and install
-                            downloadAndInstall(updateInfo);
-                        },
-                        () -> {
-                            // Later - dismiss
-                            requireActivity().getSupportFragmentManager().popBackStack();
-                        }
-                    );
-                requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(android.R.id.content, tvFragment)
-                    .addToBackStack(null)
-                    .commit();
-            } else {
-                // Show mobile bottom sheet
-                com.brouken.player.update.UpdateDialogFragment dialogFragment = 
-                    com.brouken.player.update.UpdateDialogFragment.Companion.newInstance(
-                        updateInfo,
-                        () -> {
-                            downloadAndInstall(updateInfo);
-                        },
-                        () -> {
-                            // Later - mark as skipped
-                            com.brouken.player.update.UpdateManager.Companion.getInstance(requireContext())
-                                .skipVersion(updateInfo.getTagName());
-                        }
-                    );
-                dialogFragment.show(requireActivity().getSupportFragmentManager(), "update_dialog");
-            }
+            // Use AlertDialog for simplicity and consistency
+            new AlertDialog.Builder(requireContext())
+                .setTitle("Update Available")
+                .setMessage("Version " + updateInfo.getVersionString() + " is available.\n\n" + 
+                            "Current: " + BuildConfig.VERSION_NAME + "\n\n" +
+                            updateInfo.getChangelog())
+                .setPositiveButton("Update", (dialog, which) -> {
+                    downloadAndInstall(updateInfo);
+                })
+                .setNegativeButton("Later", (dialog, which) -> {
+                    com.brouken.player.update.UpdateManager.Companion.getInstance(requireContext())
+                        .skipVersion(updateInfo.getTagName());
+                    dialog.dismiss();
+                })
+                .setCancelable(true)
+                .show();
         }
 
         private void downloadAndInstall(com.brouken.player.update.UpdateInfo updateInfo) {

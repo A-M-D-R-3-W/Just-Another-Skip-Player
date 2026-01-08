@@ -34,16 +34,23 @@ class UpdateManager(private val context: Context) {
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     
     /**
+     * Callback interface for update check results - Java compatible
+     */
+    fun interface UpdateCallback {
+        fun onResult(updateInfo: UpdateInfo?)
+    }
+    
+    /**
      * Check for updates on app launch (rate-limited to once per 24 hours)
      */
-    fun checkOnLaunch(callback: (UpdateInfo?) -> Unit) {
+    fun checkOnLaunch(callback: UpdateCallback) {
         val lastCheck = prefs.getLong(KEY_LAST_CHECK, 0)
         val now = System.currentTimeMillis()
         val hoursSinceLastCheck = TimeUnit.MILLISECONDS.toHours(now - lastCheck)
         
         if (hoursSinceLastCheck < CHECK_INTERVAL_HOURS) {
             Log.d(TAG, "Skipping check, last checked ${hoursSinceLastCheck}h ago")
-            callback(null)
+            callback.onResult(null)
             return
         }
         
@@ -53,11 +60,11 @@ class UpdateManager(private val context: Context) {
     /**
      * Force check for updates (bypasses rate limiting)
      */
-    fun forceCheck(callback: (UpdateInfo?) -> Unit) {
+    fun forceCheck(callback: UpdateCallback) {
         checkForUpdates(callback)
     }
     
-    private fun checkForUpdates(callback: (UpdateInfo?) -> Unit) {
+    private fun checkForUpdates(callback: UpdateCallback) {
         scope.launch {
             try {
                 Log.d(TAG, "Checking for updates...")
@@ -75,22 +82,22 @@ class UpdateManager(private val context: Context) {
                         val skippedVersion = prefs.getString(KEY_SKIPPED_VERSION, null)
                         if (skippedVersion == updateInfo.tagName) {
                             Log.d(TAG, "User skipped this version")
-                            withContext(Dispatchers.Main) { callback(null) }
+                            withContext(Dispatchers.Main) { callback.onResult(null) }
                             return@launch
                         }
                         
                         Log.d(TAG, "Update available: ${updateInfo.tagName}")
-                        withContext(Dispatchers.Main) { callback(updateInfo) }
+                        withContext(Dispatchers.Main) { callback.onResult(updateInfo) }
                     } else {
                         Log.d(TAG, "App is up to date")
-                        withContext(Dispatchers.Main) { callback(null) }
+                        withContext(Dispatchers.Main) { callback.onResult(null) }
                     }
                 } else {
-                    withContext(Dispatchers.Main) { callback(null) }
+                    withContext(Dispatchers.Main) { callback.onResult(null) }
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Error checking for updates", e)
-                withContext(Dispatchers.Main) { callback(null) }
+                withContext(Dispatchers.Main) { callback.onResult(null) }
             }
         }
     }
