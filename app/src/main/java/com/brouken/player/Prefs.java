@@ -52,6 +52,7 @@ class Prefs {
     private static final String PREF_KEY_INTRO_SKIP_ENABLED = "introSkipEnabled";
     private static final String PREF_KEY_INTRO_SKIP_MODE = "introSkipMode";
     private static final String PREF_KEY_SKIP_BUTTON_STYLE = "skipButtonStyle";
+    private static final String PREF_KEY_SKIP_BUTTON_TIMEOUT = "skipButtonTimeout"; // 0=until intro ends, X=seconds
 
     private static final String PREF_KEY_MAL_CLIENT_ID = "malClientId";
     private static final String PREF_KEY_CINEMETA_URL = "cinemataUrl";
@@ -134,6 +135,7 @@ class Prefs {
     public boolean introSkipEnabled = false;
     public String introSkipMode = "button"; // "auto" or "button"
     public String skipButtonStyle = "default"; // "default" or "netflix"
+    public int skipButtonTimeout = 0; // 0=show until intro ends, X=fade after X seconds
 
     public String malClientId = "";
     public String cinemataUrl = "https://v3-cinemeta.strem.io";
@@ -241,6 +243,12 @@ class Prefs {
         introSkipEnabled = mSharedPreferences.getBoolean(PREF_KEY_INTRO_SKIP_ENABLED, introSkipEnabled);
         introSkipMode = mSharedPreferences.getString(PREF_KEY_INTRO_SKIP_MODE, introSkipMode);
         skipButtonStyle = mSharedPreferences.getString(PREF_KEY_SKIP_BUTTON_STYLE, skipButtonStyle);
+        // ListPreference stores values as strings, need to parse
+        try {
+            skipButtonTimeout = Integer.parseInt(mSharedPreferences.getString(PREF_KEY_SKIP_BUTTON_TIMEOUT, String.valueOf(skipButtonTimeout)));
+        } catch (NumberFormatException e) {
+            skipButtonTimeout = 0;
+        }
 
         malClientId = mSharedPreferences.getString(PREF_KEY_MAL_CLIENT_ID, malClientId);
         cinemataUrl = mSharedPreferences.getString(PREF_KEY_CINEMETA_URL, cinemataUrl);

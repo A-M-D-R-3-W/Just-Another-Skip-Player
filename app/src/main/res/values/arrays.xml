@@ -20,6 +20,22 @@
     <!-- <item>netflix</item> DISABLED -->
   </string-array>
 
+  <string-array name="skip_button_timeout_entries">
+    <item>Until Intro Ends (0)</item>
+    <item>5 seconds</item>
+    <item>10 seconds</item>
+    <item>15 seconds</item>
+    <item>30 seconds</item>
+  </string-array>
+
+  <string-array name="skip_button_timeout_values">
+    <item>0</item>
+    <item>5</item>
+    <item>10</item>
+    <item>15</item>
+    <item>30</item>
+  </string-array>
+
   <string-array name="file_access_entries">
     <item>@string/pref_file_access_auto</item>
     <item>Storage Access Framework</item>

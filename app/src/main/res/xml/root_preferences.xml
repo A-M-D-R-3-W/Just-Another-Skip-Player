@@ -37,6 +37,15 @@
             app:summary="Choose how to handle intro skipping"
             app:useSimpleSummaryProvider="true" />
 
+        <ListPreference
+            app:key="skipButtonTimeout"
+            android:defaultValue="0"
+            app:entries="@array/skip_button_timeout_entries"
+            app:entryValues="@array/skip_button_timeout_values"
+            app:title="Skip Button Timeout"
+            app:summary="How long to show the skip button"
+            app:useSimpleSummaryProvider="true" />
+
         <EditTextPreference
             app:key="cinemataUrl"
             app:title="Cinemeta Addon URL"

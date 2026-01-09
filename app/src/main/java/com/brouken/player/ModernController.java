@@ -66,6 +66,7 @@ public class ModernController implements Player.Listener {
     private boolean isVisible = true;
     private boolean isLocked = false;
     private final Handler hideHandler = new Handler(Looper.getMainLooper());
+    private final Handler skipButtonTimeoutHandler = new Handler(Looper.getMainLooper());
     private static final int HIDE_TIMEOUT_MS = 4000;
     
     private final StringBuilder formatBuilder = new StringBuilder();
@@ -417,10 +418,35 @@ public class ModernController implements Player.Listener {
     
     public void setSkipButtonVisible(boolean visible) {
         if (btnSkipIntro != null) {
-            btnSkipIntro.setVisibility(visible ? View.VISIBLE : View.GONE);
-            // Auto-focus the skip button for Android TV D-pad navigation
+            // Cancel any pending timeout
+            skipButtonTimeoutHandler.removeCallbacksAndMessages(null);
+            
             if (visible) {
+                btnSkipIntro.setVisibility(View.VISIBLE);
+                btnSkipIntro.setAlpha(1f); // Ensure fully visible
+                // Auto-focus the skip button for Android TV D-pad navigation
                 btnSkipIntro.requestFocus();
+                
+                // Get timeout preference
+                Prefs prefs = new Prefs(activity);
+                int timeoutSeconds = prefs.skipButtonTimeout;
+                
+                // If timeout > 0, schedule fade out after X seconds
+                // timeout = 0 means "until intro ends" (handled by SkipManager calling setSkipButtonVisible(false))
+                if (timeoutSeconds > 0) {
+                    skipButtonTimeoutHandler.postDelayed(() -> {
+                        // Fade out the skip button
+                        if (btnSkipIntro != null && btnSkipIntro.getVisibility() == View.VISIBLE) {
+                            btnSkipIntro.animate()
+                                .alpha(0f)
+                                .setDuration(300)
+                                .withEndAction(() -> btnSkipIntro.setVisibility(View.GONE))
+                                .start();
+                        }
+                    }, timeoutSeconds * 1000L);
+                }
+            } else {
+                btnSkipIntro.setVisibility(View.GONE);
             }
         }
     }
@@ -587,9 +613,10 @@ public class ModernController implements Player.Listener {
     public void release() {
         player.removeListener(this);
         hideHandler.removeCallbacksAndMessages(null);
+        skipButtonTimeoutHandler.removeCallbacksAndMessages(null);
         if (playerView instanceof CustomPlayerView) {
             ((CustomPlayerView) playerView).setOnTapListener(null);
-    }
+        }
     }
 
     private void toggleLock() {
