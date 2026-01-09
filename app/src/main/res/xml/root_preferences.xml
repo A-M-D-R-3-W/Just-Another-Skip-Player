@@ -395,6 +395,13 @@
             app:defaultValue="true"
             app:iconSpaceReserved="false"/>
 
+        <Preference
+            app:key="forceShowUpdate"
+            app:title="🧪 Test Update Screen"
+            app:summary="Force show the update dialog for testing"
+            app:selectable="true"
+            app:iconSpaceReserved="false"/>
+
     </PreferenceCategory>
 
 </PreferenceScreen>

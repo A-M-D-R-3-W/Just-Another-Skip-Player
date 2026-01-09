@@ -233,6 +233,32 @@ public class SettingsActivity extends AppCompatActivity {
                     return true;
                 });
             }
+            
+            // Force Show Update Screen for testing
+            Preference forceShowUpdatePref = findPreference("forceShowUpdate");
+            if (forceShowUpdatePref != null) {
+                forceShowUpdatePref.setOnPreferenceClickListener(preference -> {
+                    // Create fake update info for testing
+                    com.brouken.player.update.UpdateInfo fakeUpdate = new com.brouken.player.update.UpdateInfo(
+                        "v99.0.0",  // Fake version
+                        "🎬 JASP v99.0.0 - Test Update",  // Name
+                        "# 🎬 Test Update Screen\n\n" +
+                        "This is a **test update** to verify the update dialog looks and functions correctly.\n\n" +
+                        "### ✨ Features\n" +
+                        "- Skip Intro Button\n" +
+                        "- In-App Updates\n" +
+                        "- Trakt Scrobbling\n" +
+                        "- Android TV Support\n\n" +
+                        "### 🔧 This is NOT a real update\n" +
+                        "The download will fail because this APK doesn't exist.",
+                        "https://example.com/fake.apk",  // Fake URL (will fail if clicked)
+                        25 * 1024 * 1024,  // Fake size: 25 MB
+                        "JASP-test.apk"  // Fake filename
+                    );
+                    showUpdateDialog(fakeUpdate);
+                    return true;
+                });
+            }
         }
 
         private void showUpdateDialog(com.brouken.player.update.UpdateInfo updateInfo) {
