@@ -33,10 +33,9 @@ jobs:
     - name: Get version from build.gradle
       id: version
       run: |
-        VERSION=$(grep -oP 'versionCode \K\d+' app/build.gradle)
-        echo "VERSION_CODE=$VERSION" >> $GITHUB_OUTPUT
-        echo "VERSION_NAME=0.$VERSION" >> $GITHUB_OUTPUT
-        echo "Version: 0.$VERSION"
+        VERSION_NAME=$(grep -oP "versionName = ['\"]\\K[^'\"]+(?=['\"])" app/build.gradle | head -1)
+        echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_OUTPUT
+        echo "Version: $VERSION_NAME"
         
     - name: Build Original Universal Debug APK
       run: ./gradlew assembleOriginalLatestUniversalDebug
