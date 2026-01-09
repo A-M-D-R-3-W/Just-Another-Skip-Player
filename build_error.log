@@ -20,15 +20,14 @@
 > Task :doubletapplayerview:writeDebugAarMetadata UP-TO-DATE
 > Task :app:checkJaspLatestUniversalDebugAarMetadata UP-TO-DATE
 > Task :doubletapplayerview:processDebugNavigationResources UP-TO-DATE
-> Task :app:processJaspLatestUniversalDebugNavigationResources UP-TO-DATE
+> Task :app:processJaspLatestUniversalDebugNavigationResources
 > Task :app:compileJaspLatestUniversalDebugNavigationResources UP-TO-DATE
 > Task :app:generateJaspLatestUniversalDebugResValues UP-TO-DATE
 > Task :doubletapplayerview:generateDebugResValues UP-TO-DATE
 > Task :doubletapplayerview:generateDebugResources UP-TO-DATE
 > Task :doubletapplayerview:packageDebugResources UP-TO-DATE
-> Task :app:mapJaspLatestUniversalDebugSourceSetPaths UP-TO-DATE
-> Task :app:generateJaspLatestUniversalDebugResources UP-TO-DATE
-> Task :app:mergeJaspLatestUniversalDebugResources UP-TO-DATE
+> Task :app:mapJaspLatestUniversalDebugSourceSetPaths
+> Task :app:generateJaspLatestUniversalDebugResources
 > Task :app:createJaspLatestUniversalDebugCompatibleScreenManifests UP-TO-DATE
 > Task :android-file-chooser:extractDeepLinksDebug UP-TO-DATE
 > Task :android-file-chooser:processDebugManifest UP-TO-DATE
@@ -39,9 +38,9 @@
 > Task :app:processJaspLatestUniversalDebugManifest UP-TO-DATE
 > Task :app:processJaspLatestUniversalDebugManifestForPackage UP-TO-DATE
 > Task :doubletapplayerview:compileDebugLibraryResources UP-TO-DATE
+> Task :app:mergeJaspLatestUniversalDebugResources
 > Task :doubletapplayerview:parseDebugLocalResources UP-TO-DATE
 > Task :doubletapplayerview:generateDebugRFile UP-TO-DATE
-> Task :app:processJaspLatestUniversalDebugResources UP-TO-DATE
 > Task :doubletapplayerview:javaPreCompileDebug UP-TO-DATE
 > Task :doubletapplayerview:compileDebugJavaWithJavac NO-SOURCE
 > Task :doubletapplayerview:bundleLibCompileToJarDebug UP-TO-DATE
@@ -79,97 +78,16 @@
 > Task :app:validateSigningJaspLatestUniversalDebug UP-TO-DATE
 > Task :app:writeJaspLatestUniversalDebugAppMetadata UP-TO-DATE
 > Task :app:writeJaspLatestUniversalDebugSigningConfigVersions UP-TO-DATE
-
-> Task :app:compileJaspLatestUniversalDebugKotlin
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/FormatSupportManager.kt:70:46 'getter for supportedHdrTypes: IntArray!' is deprecated. Deprecated in Java
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/FormatSupportManager.kt:94:32 'getter for supportedHdrTypes: IntArray!' is deprecated. Deprecated in Java
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/FormatSupportManager.kt:275:9 Parameter 'auroChannelMapping' is never used
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/tmdb/JumpScareManager.kt:96:30 Condition 'player != null' is always 'true'
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/tmdb/SkipManager.kt:277:40 Parameter 'season' is never used
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/tonemap/TonemapProcessor.kt:84:41 'getter for supportedHdrTypes: IntArray!' is deprecated. Deprecated in Java
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/tonemap/TonemapProcessor.kt:113:40 Parameter 'staticInfo' is never used, could be renamed to _
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/trakt/TraktAuthManager.kt:191:9 Parameter 'currentAccessToken' is never used
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/trakt/TraktScrobbleManager.kt:291:36 Parameter 'initialProgress' is never used
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/ui/subtitle/PacmanLoadingView.kt:49:51 'scaledDensity: Float' is deprecated. Deprecated in Java
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/ui/subtitle/SubtitleAdapter.kt:257:30 Parameter 'icon' is never used
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/ui/subtitle/SubtitleAdapter.kt:257:44 Parameter 'label' is never used
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/ui/subtitle/SubtitleAddonsActivity.kt:193:42 'getter for adapterPosition: Int' is deprecated. Deprecated in Java
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/ui/subtitle/SubtitleAddonsActivity.kt:194:36 'getter for adapterPosition: Int' is deprecated. Deprecated in Java
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/ui/subtitle/SubtitleAddonsActivity.kt:290:27 Parameter 'addon' is never used
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/ui/subtitle/SubtitleHub.kt:425:39 Parameter 'track' is never used
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/update/UpdateActivity.kt:86:15 Parameter 'percent' is never used, could be renamed to _
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/update/UpdateActivity.kt:86:24 Parameter 'downloaded' is never used, could be renamed to _
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/update/UpdateActivity.kt:86:36 Parameter 'total' is never used, could be renamed to _
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/update/UpdateActivity.kt:101:15 'onBackPressed(): Unit' is deprecated. Deprecated in Java
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/update/UpdateDialogFragment.kt:71:13 Variable 'updateBadge' is never used
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/DebugLogger.kt:207:17 Parameter 'tag' is never used
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameCleaner.kt:86:20 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameCleaner.kt:87:22 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameCleaner.kt:88:23 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameCleaner.kt:93:24 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameCleaner.kt:94:26 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameCleaner.kt:95:27 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameCleaner.kt:101:28 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameCleaner.kt:102:31 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameCleaner.kt:110:32 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameCleaner.kt:111:35 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameCleaner.kt:119:49 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameCleaner.kt:120:47 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameCleaner.kt:128:44 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameCleaner.kt:152:34 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameCleaner.kt:156:24 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameFixer.kt:15:24 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameFixer.kt:16:26 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameFixer.kt:17:27 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameFixer.kt:25:25 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameFixer.kt:26:26 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/NameFixer.kt:27:27 Unsafe use of a nullable receiver of type String?
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/RemoteServer.kt:39:9 This is a delicate API and its use requires care. Make sure you fully read and understand documentation of the declaration that is marked as a delicate API.
-w: file:///E:/Stremio%20RPC%20ATV/Player/app/src/main/java/com/brouken/player/utils/RemoteServer.kt:65:9 This is a delicate API and its use requires care. Make sure you fully read and understand documentation of the declaration that is marked as a delicate API.
-
-> Task :app:compileJaspLatestUniversalDebugJavaWithJavac
-.\gradlew : Note: 
-Some input files use 
-or override a 
-deprecated API.
-At line:1 char:1
-+ .\gradlew assembleJa
-spLatestUniversalDebug
- 2>&1 | Out-File 
--FilePath  ...
-+ ~~~~~~~~~~~~~~~~~~~~
-~~~~~~~~~~~~~~~~~~~~~~
-~~~~~
-    + CategoryInfo    
-          : NotSpeci  
-  fied: (Note: Some   
-  inpu...deprecate    
-d API.:String) []    
-, RemoteException
-    + FullyQualifiedE 
-   rrorId : NativeCo  
-  mmandError
- 
-Note: Recompile with 
--Xlint:deprecation 
-for details.
-Note: E:\Stremio RPC A
-TV\Player\app\src\main
-\java\com\brouken\play
-er\Prefs.java uses 
-unchecked or unsafe 
-operations.
-Note: Recompile with 
--Xlint:unchecked for 
-details.
-
-> Task :app:dexBuilderJaspLatestUniversalDebug
+> Task :app:processJaspLatestUniversalDebugResources
+> Task :app:compileJaspLatestUniversalDebugKotlin UP-TO-DATE
+> Task :app:compileJaspLatestUniversalDebugJavaWithJavac UP-TO-DATE
+> Task :app:dexBuilderJaspLatestUniversalDebug UP-TO-DATE
 > Task :app:mergeJaspLatestUniversalDebugGlobalSynthetics UP-TO-DATE
-> Task :app:processJaspLatestUniversalDebugJavaRes
-> Task :app:mergeProjectDexJaspLatestUniversalDebug
-> Task :app:mergeJaspLatestUniversalDebugJavaResource
+> Task :app:processJaspLatestUniversalDebugJavaRes UP-TO-DATE
+> Task :app:mergeJaspLatestUniversalDebugJavaResource UP-TO-DATE
+> Task :app:mergeProjectDexJaspLatestUniversalDebug UP-TO-DATE
 > Task :app:packageJaspLatestUniversalDebug
-> Task :app:createJaspLatestUniversalDebugApkListingFileRedirect
+> Task :app:createJaspLatestUniversalDebugApkListingFileRedirect UP-TO-DATE
 > Task :app:assembleJaspLatestUniversalDebug
 
 [Incubating] Problems report is available at: file:///E:/Stremio%20RPC%20ATV/Player/build/reports/problems/problems-report.html
@@ -180,5 +98,5 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/8.13/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD SUCCESSFUL in 38s
-72 actionable tasks: 8 executed, 64 up-to-date
+BUILD SUCCESSFUL in 3s
+72 actionable tasks: 6 executed, 66 up-to-date

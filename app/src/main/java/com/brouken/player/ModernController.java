@@ -418,6 +418,10 @@ public class ModernController implements Player.Listener {
     public void setSkipButtonVisible(boolean visible) {
         if (btnSkipIntro != null) {
             btnSkipIntro.setVisibility(visible ? View.VISIBLE : View.GONE);
+            // Auto-focus the skip button for Android TV D-pad navigation
+            if (visible) {
+                btnSkipIntro.requestFocus();
+            }
         }
     }
 
