@@ -26,26 +26,26 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
       
-    - name: Build APKs
-      run: |
-        ./gradlew assembleOriginalLatestUniversalDebug
-        ./gradlew assembleJaspLatestUniversalDebug
+    - name: Build ArcPlayer Release APK
+      run: ./gradlew assembleRelease
         
     - name: Get version from tag
       id: get_version
       run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
       
-    - name: Rename APKs
+    - name: Rename APK
+      # The build.gradle archivesBaseName is ArcPlayer.v${versionName}, so the path is app/build/outputs/apk/release/ArcPlayer.v${versionName}.apk
+      # We need to find the exact file name if we don't know the full version name.
+      # A safer way is to rely on the build.gradle change that makes it single-output.
       run: |
-        mv app/build/outputs/apk/originalLatestUniversal/debug/*.apk app/build/outputs/apk/Just-Player-${{ steps.get_version.outputs.VERSION }}-universal.apk
-        mv app/build/outputs/apk/jaspLatestUniversal/debug/*.apk app/build/outputs/apk/JASP-${{ steps.get_version.outputs.VERSION }}-universal.apk
+        mv app/build/outputs/apk/release/*.apk app/build/outputs/apk/ArcPlayer-${{ steps.get_version.outputs.VERSION }}-universal-release.apk
         
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
-        name: 🎬 JASP v${{ steps.get_version.outputs.VERSION }}
+        name: 🎬 ArcPlayer v${{ steps.get_version.outputs.VERSION }}
         body: |
-          # 🎬 Just Another Skip Player v${{ steps.get_version.outputs.VERSION }}
+          # 🎬 ArcPlayer v${{ steps.get_version.outputs.VERSION }}
           
           Simple and lightweight, yet polished and powerful Android video player based on ExoPlayer.
           
@@ -53,10 +53,7 @@ jobs:
           
           | APK | Description |
           |-----|-------------|
-          | **JASP** | Purple icon + JASP branding |
-          | **Just Player** | Classic Just Player branding |
-          
-          > Both versions have **identical features** - only the icon and name differ!
+          | **ArcPlayer** | Unified ArcPlayer branding |
           
           ## ✨ Features
           
@@ -77,7 +74,6 @@ jobs:
             Made with ❤️ by <b>Cxsmo_AI</b>
           </p>
         files: |
-          app/build/outputs/apk/Just-Player-${{ steps.get_version.outputs.VERSION }}-universal.apk
-          app/build/outputs/apk/JASP-${{ steps.get_version.outputs.VERSION }}-universal.apk
+          app/build/outputs/apk/ArcPlayer-${{ steps.get_version.outputs.VERSION }}-universal-release.apk
         draft: false
         prerelease: ${{ contains(github.ref, 'beta') || contains(github.ref, 'alpha') }}

@@ -2,7 +2,7 @@
   <img src="assets/jasp_banner.png" alt="JASP Banner" width="600"/>
 </p>
 
-<h1 align="center">🎬 Just Another Skip Player</h1>
+<h1 align="center">🎬 ArcPlayer</h1>
 
 <p align="center">
   <b>Simple and lightweight, yet polished and powerful Android video player based on ExoPlayer</b><br>

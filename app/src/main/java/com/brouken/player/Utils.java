@@ -356,11 +356,11 @@ class Utils {
                 if (PlayerActivity.player != null) {
                     final Format format = PlayerActivity.player.getVideoFormat();
                     if (format != null && isPortrait(format))
-                        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+                        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                     else
-                        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+                        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 } else {
-                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 }
 
                 break;
@@ -710,7 +710,7 @@ class Utils {
 
     public static boolean isPiPSupported(Context context) {
         PackageManager packageManager = context.getPackageManager();
-        if (BuildConfig.FLAVOR_distribution.equals("amazon") && packageManager.hasSystemFeature(FEATURE_FIRE_TV)) {
+        if (packageManager.hasSystemFeature(FEATURE_FIRE_TV)) {
             return false;
         }
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE);

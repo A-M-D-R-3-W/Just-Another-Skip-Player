@@ -80,17 +80,9 @@ class UpdateTvFragment : Fragment() {
         val laterButton = view.findViewById<Button>(R.id.laterButton)
         val updateButton = view.findViewById<Button>(R.id.updateButton)
 
-        // Set variant-specific branding
-        val isJasp = BuildConfig.FLAVOR.contains("jasp", ignoreCase = true)
-        appNameText.text = if (isJasp) "Just Another Skip Player" else "Just Player"
+        // Set app branding to ArcPlayer exclusively (removed variant logic)
+        appNameText.text = "ArcPlayer"
         
-        if (isJasp) {
-            try {
-                val jaspIcon = requireContext().packageManager.getApplicationIcon(requireContext().packageName)
-                appIcon.setImageDrawable(jaspIcon)
-            } catch (e: Exception) { }
-        }
-
         // Set data
         currentVersion.text = "v${BuildConfig.VERSION_NAME}"
         newVersion.text = args.getString(ARG_VERSION, "")

@@ -1,7 +1,6 @@
 package com.brouken.player.update
 
 import android.util.Log
-import com.brouken.player.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
@@ -68,15 +67,12 @@ class GitHubReleasesClient {
     }
     
     /**
-     * Find APK asset matching current build variant (JASP or Original)
+     * Find APK asset matching the ArcPlayer/JASP variant (since the other flavor was removed)
      */
     private fun findMatchingApk(assets: JSONArray): JSONObject? {
-        val isJasp = BuildConfig.FLAVOR.contains("jasp", ignoreCase = true)
-        val pattern = if (isJasp) {
-            Regex("JASP.*\\.apk", RegexOption.IGNORE_CASE)
-        } else {
-            Regex("Just-Player.*\\.apk", RegexOption.IGNORE_CASE)
-        }
+        // Now that product flavors are removed, we target the former JASP/ArcPlayer APK exclusively.
+        // I will use the "JASP" pattern as it is likely still the name used in the release asset.
+        val pattern = Regex("JASP.*\\.apk", RegexOption.IGNORE_CASE)
         
         for (i in 0 until assets.length()) {
             val asset = assets.getJSONObject(i)

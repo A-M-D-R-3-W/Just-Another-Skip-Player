@@ -11,12 +11,12 @@ android {
 
     defaultConfig {
         def abiFilter = project.findProperty("abiFilter")
-        applicationId "com.brouken.player"
+        applicationId "com.cxsmo.player" // Unified ArcPlayer ID
         minSdkVersion 23
         targetSdkVersion 36
         versionCode 10200  // v1.2.0 = 1*10000 + 2*100 + 0
         versionName "1.2"
-        archivesBaseName = "Just.Player.v${versionName}"
+        archivesBaseName = "ArcPlayer.v${versionName}" // New unified name
         if (abiFilter) {
             def abiCodeMap = ["x86": 1, "x86_64": 2, "armeabi-v7a": 3, "arm64-v8a": 4]
             versionCode = versionCode * 10 + abiCodeMap[abiFilter]
@@ -52,61 +52,12 @@ android {
             //proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    flavorDimensions "brand", "targetSdk", "distribution"
-    productFlavors {
-        // Brand flavors
-        original {
-            dimension "brand"
-            // Keep original package and branding
-        }
-        jasp {
-            dimension "brand"
-            applicationId "com.cxsmo.player"
-            versionNameSuffix "-jasp"
-        }
-        
-        // Target SDK flavors
-        latest {
-            dimension "targetSdk"
-        }
-        legacy {
-            dimension "targetSdk"
-            versionCode = defaultConfig.versionCode + 1_000_000
-            versionNameSuffix "-legacy"
-            targetSdkVersion 29
-        }
-
-        // Distribution flavors
-        universal {
-            dimension "distribution"
-        }
-        amazon {
-            dimension "distribution"
-        }
-        accrescent {
-            dimension "distribution"
-        }
-    }
-    variantFilter { variant ->
-        def names = variant.flavors*.name
-        // Ignore legacy builds for amazon/accrescent
-        if (names.contains("legacy") && (names.contains("amazon") || names.contains("accrescent"))) {
-            setIgnore(true)
-        }
-        // Only build latest+universal for JASP to simplify
-        if (names.contains("jasp") && (names.contains("legacy") || names.contains("amazon") || names.contains("accrescent"))) {
-            setIgnore(true)
-        }
-    }
+    
     applicationVariants.all { variant ->
-        if (variant.buildType.name == "release" && variant.flavorName == "latestUniversal") {
+        if (variant.buildType.name == "release") {
             variant.outputs.all { output ->
+                // Ensures all release APKs use the single archivesBaseName
                 output.outputFileName = "${archivesBaseName}.apk"
-            }
-        }
-        if (variant.buildType.name == "release" && variant.flavorName == "legacyUniversal") {
-            variant.outputs.all { output ->
-                output.outputFileName = "${archivesBaseName}-legacy.apk"
             }
         }
     }

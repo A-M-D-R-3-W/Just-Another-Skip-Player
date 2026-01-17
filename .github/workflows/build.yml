@@ -30,50 +30,37 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
         
-    - name: Build Original Universal Debug APK
-      run: ./gradlew assembleOriginalLatestUniversalDebug
+    - name: Build ArcPlayer Universal Debug APK
+      run: ./gradlew assembleDebug
       
-    - name: Build JASP Universal Debug APK
-      run: ./gradlew assembleJaspLatestUniversalDebug
-      
-    - name: Rename APKs
+    - name: Rename APK
       run: |
         mkdir -p release-apks
-        cp app/build/outputs/apk/originalLatestUniversal/debug/*.apk release-apks/Just-Player.apk
-        cp app/build/outputs/apk/jaspLatestUniversal/debug/*.apk release-apks/JASP.apk
+        cp app/build/outputs/apk/debug/*.apk release-apks/ArcPlayer.apk
         
-    - name: Upload Original APK Artifact
+    - name: Upload ArcPlayer APK Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: Just-Player
-        path: release-apks/Just-Player.apk
-        
-    - name: Upload JASP APK Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: JASP
-        path: release-apks/JASP.apk
+        name: ArcPlayer-Debug
+        path: release-apks/ArcPlayer.apk
         
     - name: Create/Update Release
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v1.2
-        name: "🎬 JASP v1.2"
+        name: "🎬 ArcPlayer v1.2"
         body: |
-          # 🎬 Just Another Skip Player v1.2
+          # 🎬 ArcPlayer v1.2
           
           ### 🔄 In-App Updater
           - **Automatic Update Checks** - App checks for updates on launch (configurable)
           - **Manual Update Check** - Check anytime from Settings → App Updates
           - **One-Tap Install** - Download and install updates directly from the app
-          - **Variant-Aware** - Automatically downloads the correct APK (JASP or Just Player)
           - **Skip Version** - Press "Later" to skip a version and not be prompted again
           
           ### 🎨 Fixed Branding
-          - **Proper Variant Detection** - App correctly identifies JASP vs Just Player
-          - **Consistent Naming** - Update dialogs show correct app name for your variant
-          - **Logo Support** - Each variant displays its own icon in update prompts
+          - **Unified Branding** - The app is now exclusively branded as ArcPlayer.
           
           ---
           
@@ -81,13 +68,7 @@ jobs:
           
           | APK | Description |
           |-----|-------------|
-          | **JASP.apk** | 💜 Purple icon + JASP branding |
-          | **Just-Player.apk** | 🟢 Classic Just Player branding (app compatibility) |
-          
-          > **Note:** Both versions have **identical features** - only the icon and name differ!
-          > 
-          > - **JASP** = Standalone install with custom branding
-          > - **Just Player** = Compatible with Stremio and other apps that launch "Just Player"
+          | **ArcPlayer.apk** | Unified ArcPlayer branding |
           
           ---
           
@@ -96,7 +77,7 @@ jobs:
           | Category | Features |
           |----------|----------|
           | 🎯 **Intro Skipping** | 5-Tier system: AnimeSkip → SkipDB → IntroHater → AniSkip → IntroDB |
-          | 🔄 **In-App Updates** | Auto-check, manual check, one-tap install, variant-aware |
+          | 🔄 **In-App Updates** | Auto-check, manual check, one-tap install |
           | 📊 **Trakt Scrobbling** | Auto-track your watch history with OAuth |
           | 🌐 **Remote Web UI** | Submit intro timestamps from your phone |
           | 🎥 **Format Support** | HEVC, HDR10, Dolby Vision, Atmos, DTS:X |
@@ -121,7 +102,6 @@ jobs:
             Made with ❤️ by <b>Cxsmo_AI</b>
           </p>
         files: |
-          release-apks/Just-Player.apk
-          release-apks/JASP.apk
+          release-apks/ArcPlayer.apk
         draft: false
         prerelease: false

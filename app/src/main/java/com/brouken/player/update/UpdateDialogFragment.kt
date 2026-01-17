@@ -84,14 +84,12 @@ class UpdateDialogFragment : BottomSheetDialogFragment() {
         val size = args.getLong(ARG_SIZE, 0)
         fileSizeText.text = "📦 Download size: ${formatSize(size)}"
 
-        // Set variant-specific icon
-        if (BuildConfig.FLAVOR.contains("jasp", ignoreCase = true)) {
-            try {
-                val jaspIcon = requireContext().packageManager.getApplicationIcon(requireContext().packageName)
-                appIcon.setImageDrawable(jaspIcon)
-            } catch (e: Exception) {
-                // Fallback to default
-            }
+        // Set ArcPlayer icon (removed flavor check)
+        try {
+            val icon = requireContext().packageManager.getApplicationIcon(requireContext().packageName)
+            appIcon.setImageDrawable(icon)
+        } catch (e: Exception) {
+            // Fallback to default
         }
 
         // Start animations

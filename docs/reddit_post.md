@@ -12,7 +12,7 @@
 
 ## POST TITLE:
 ```
-[RELEASE] JASP - External Player with Auto Intro Skip (5 APIs, Trakt, Android TV)
+[RELEASE] ArcPlayer - External Player with Auto Intro Skip (5 APIs, Trakt, Android TV)
 ```
 
 ---
@@ -23,9 +23,9 @@
 
 ---
 
-# What is JASP?
+# What is ArcPlayer?
 
-**Just Another Skip Player** - Fork of [moneytoo's Just Player](https://github.com/moneytoo/Player) with streaming community features.
+**ArcPlayer** - Fork of [moneytoo's Just Player](https://github.com/moneytoo/Player) with streaming community features.
 
 **Problem:** Automatically skip intros without lifting a finger.
 
@@ -66,7 +66,7 @@
 **v1.0.0-beta** - [GitHub Releases](https://github.com/Cxsmo-ai/Just-Another-Skip-Player/releases)
 
 Two versions (both have identical features):
-- **JASP** - Purple icon
+- **ArcPlayer** - Purple icon
 - **Just Player** - Original branding
 
 ---
