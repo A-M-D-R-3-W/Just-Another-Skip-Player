@@ -28,7 +28,12 @@
         android:paddingLeft="@dimen/exo_styled_bottom_bar_time_padding"
         android:paddingRight="@dimen/exo_styled_bottom_bar_time_padding"
         android:layout_gravity="center_vertical|start"
+        android:gravity="center_vertical"
         android:layoutDirection="ltr">
+
+      <ImageButton android:id="@+id/exo_play_pause"
+          style="@style/ExoStyledControls.Button.Bottom"
+          android:background="@drawable/button_focus_red"/>
 
       <TextView android:id="@+id/exo_position"
           style="@style/ExoStyledControls.TimeText.Position"/>
@@ -57,13 +62,16 @@
           style="@style/ExoStyledControls.Button.Bottom.RepeatToggle"/>
 
       <ImageButton android:id="@+id/exo_subtitle"
-          style="@style/ExoStyledControls.Button.Bottom.CC"/>
+          style="@style/ExoStyledControls.Button.Bottom.CC"
+          android:background="@drawable/button_focus_red"/>
 
       <ImageButton android:id="@+id/exo_settings"
-          style="@style/ExoStyledControls.Button.Bottom.Settings"/>
+          style="@style/ExoStyledControls.Button.Bottom.Settings"
+          android:background="@drawable/button_focus_red"/>
 
       <ImageButton android:id="@+id/exo_fullscreen"
-          style="@style/ExoStyledControls.Button.Bottom.FullScreen"/>
+          style="@style/ExoStyledControls.Button.Bottom.FullScreen"
+          android:background="@drawable/button_focus_red"/>
 
       <ImageButton android:id="@+id/exo_overflow_show"
           style="@style/ExoStyledControls.Button.Bottom.OverflowShow"/>
@@ -143,12 +151,6 @@
           android:layout_width="40dp"
           android:layout_height="40dp"
           android:src="@drawable/ic_netflix_rewind_10" />
-
-      <ImageButton
-          android:id="@+id/exo_play_pause"
-          style="@style/ExoStyledControls.Button.Center.PlayPause"
-          android:layout_width="45dp"
-          android:layout_height="45dp" />
 
     <ProgressBar android:id="@+id/loading"
         style="?android:attr/progressBarStyle"

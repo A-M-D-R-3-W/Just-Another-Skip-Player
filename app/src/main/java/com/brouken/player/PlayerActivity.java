@@ -648,6 +648,7 @@ public class PlayerActivity extends Activity {
         buttonOpen.setImageResource(R.drawable.ic_folder_open_24dp);
         buttonOpen.setId(View.generateViewId());
         buttonOpen.setContentDescription(getString(R.string.button_open));
+        buttonOpen.setBackgroundResource(R.drawable.button_focus_red);
 
         buttonOpen.setOnClickListener(view -> openFile(mPrefs.mediaUri));
 
@@ -917,6 +918,7 @@ public class PlayerActivity extends Activity {
         ImageButton buttonSubtitle = new ImageButton(this, null, 0, R.style.ExoStyledControls_Button_Bottom);
         buttonSubtitle.setImageResource(R.drawable.ic_subtitles_24dp);
         buttonSubtitle.setContentDescription(getString(R.string.button_subtitles));
+        buttonSubtitle.setBackgroundResource(R.drawable.button_focus_red);
         buttonSubtitle.setOnClickListener(v -> showSubtitleSelectionDialog());
         buttonSubtitle.setOnLongClickListener(v -> {
             enableRotation();
@@ -1058,6 +1060,12 @@ public class PlayerActivity extends Activity {
         // Add settings to controls only for default layout
         if (controls != null && exoSettings != null) {
             controls.addView(exoSettings);
+        }
+
+        // Set background for fullscreen button to override style
+        View exoFullscreen = playerView.findViewById(R.id.exo_fullscreen);
+        if (exoFullscreen != null) {
+            exoFullscreen.setBackgroundResource(R.drawable.button_focus_red);
         }
 
         if (exoBasicControls != null && horizontalScrollView != null) {
