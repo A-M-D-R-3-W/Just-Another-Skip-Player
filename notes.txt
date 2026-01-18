@@ -6,3 +6,7 @@ play/pause icons from https://icon-sets.iconify.design/gravity-ui/. They go in:
 app/src/main/res/drawable, then an xml file needs to be created, and it's assigned
 in the exo_styled_controls_play.xml and exo_styled_controls_pause.xml files.
 NOTE: the svg's must be deleted once the xml conversion is created.
+
+For intro beginning / ending, maybe indicate the start and stop on a
+screenshot of the current frame instead of a time, as different streams
+may have different lengths.
