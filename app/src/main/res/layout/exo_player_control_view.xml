@@ -7,6 +7,19 @@
       android:layout_height="match_parent"
       android:layout_gravity="center"
       android:layoutDirection="ltr">
+
+      <com.brouken.player.CustomDefaultTimeBar
+          android:id="@+id/exo_progress"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/exo_styled_progress_layout_height"
+          android:layout_gravity="bottom"
+          android:layout_marginBottom="@dimen/exo_styled_progress_margin_bottom"
+          app:ad_marker_width="@dimen/marker_width"
+          app:bar_gravity="bottom"
+          app:bar_height="@dimen/exo_styled_progress_bar_height"
+          app:scrubber_dragged_size="@dimen/exo_styled_progress_dragged_thumb_size"
+          app:scrubber_enabled_size="@dimen/exo_styled_progress_enabled_thumb_size"
+          app:touch_target_height="@dimen/exo_styled_progress_touch_target_height" />
   </FrameLayout>
 
   <FrameLayout android:id="@+id/exo_bottom_bar"
@@ -87,19 +100,7 @@
 
   </FrameLayout>
 
-  <com.brouken.player.CustomDefaultTimeBar android:id="@+id/exo_progress"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/exo_styled_progress_layout_height"
-      android:layout_gravity="bottom"
-      android:layout_marginBottom="@dimen/exo_styled_progress_margin_bottom"
-      app:bar_height="@dimen/exo_styled_progress_bar_height"
-      app:bar_gravity="bottom"
-      app:touch_target_height="@dimen/exo_styled_progress_touch_target_height"
-      app:scrubber_enabled_size="@dimen/exo_styled_progress_enabled_thumb_size"
-      app:scrubber_dragged_size="@dimen/exo_styled_progress_dragged_thumb_size"
-      app:ad_marker_width="@dimen/marker_width"/>
-
-  <LinearLayout android:id="@+id/exo_minimal_controls"
+    <LinearLayout android:id="@+id/exo_minimal_controls"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="bottom|end"
