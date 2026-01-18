@@ -17,6 +17,7 @@
         <item name="android:visibility">gone</item>
     </style>
 
+
     <style name="Transparent" parent="@android:style/Theme.Material.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>

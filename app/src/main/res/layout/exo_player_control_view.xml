@@ -126,13 +126,19 @@
         style="@style/ExoStyledControls.Button.Center.Secondary"
         android:src="@drawable/exo_styled_controls_delete"/>
 
-    <ImageButton android:id="@+id/exo_prev"
-        style="@style/ExoStyledControls.Button.Center.Previous"/>
+      <ImageButton
+          android:id="@+id/exo_prev"
+          style="@style/ExoStyledControls.Button.Center.Previous"
+          android:layout_width="45dp"
+          android:layout_height="45dp" />
 
     <include layout="@layout/exo_player_control_rewind_button" />
 
-    <ImageButton android:id="@+id/exo_play_pause"
-        style="@style/ExoStyledControls.Button.Center.PlayPause"/>
+      <ImageButton
+          android:id="@+id/exo_play_pause"
+          style="@style/ExoStyledControls.Button.Center.PlayPause"
+          android:layout_width="45dp"
+          android:layout_height="45dp" />
 
     <ProgressBar android:id="@+id/loading"
         style="?android:attr/progressBarStyle"
@@ -142,8 +148,11 @@
 
     <include layout="@layout/exo_player_control_ffwd_button" />
 
-    <ImageButton android:id="@+id/exo_next"
-        style="@style/ExoStyledControls.Button.Center.Next"/>
+      <ImageButton
+          android:id="@+id/exo_next"
+          style="@style/ExoStyledControls.Button.Center.Next"
+          android:layout_width="45dp"
+          android:layout_height="45dp" />
 
     <ImageButton android:id="@+id/next"
         style="@style/ExoStyledControls.Button.Center.Secondary"

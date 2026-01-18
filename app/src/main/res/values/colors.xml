@@ -13,4 +13,6 @@
     <!-- Update dialog colors -->
     <color name="surface_dark">#1E1E1E</color>
     <color name="accent_purple">#9C27B0</color>
+
+    <color name="blue">#FF0000FF</color>
 </resources>

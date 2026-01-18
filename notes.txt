@@ -1,0 +1,3 @@
+controls (playback) design is located in exo_player_control_view.xml.
+
+Overrides for control button styles (for sizes) are in themes.xml.
