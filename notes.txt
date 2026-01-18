@@ -1,3 +1,8 @@
 controls (playback) design is located in exo_player_control_view.xml.
 
 Overrides for control button styles (for sizes) are in themes.xml.
+
+play/pause icons from https://icon-sets.iconify.design/gravity-ui/. They go in:
+app/src/main/res/drawable, then an xml file needs to be created, and it's assigned
+in the exo_styled_controls_play.xml and exo_styled_controls_pause.xml files.
+NOTE: the svg's must be deleted once the xml conversion is created.
