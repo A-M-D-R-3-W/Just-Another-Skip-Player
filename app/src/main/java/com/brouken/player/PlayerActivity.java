@@ -717,7 +717,20 @@ public class PlayerActivity extends Activity {
         titleView = new TextView(this);
         titleView.setBackgroundColor(Color.TRANSPARENT);
         titleView.setTextColor(Color.WHITE);
-        titleView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        FrameLayout.LayoutParams titleParams = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, 
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        titleParams.gravity = android.view.Gravity.BOTTOM;
+        // Position with fixed offset from bottom of screen
+        int bottomBarMargin = getResources().getDimensionPixelOffset(R.dimen.exo_bottom_bar_margin);
+        int bottomOffset = Utils.dpToPx(55); // Offset from bottom of screen in dp (will be overridden by window insets handler)
+        titleParams.setMargins(
+                bottomBarMargin,
+                0,
+                bottomBarMargin,
+                bottomOffset
+        );
+        titleView.setLayoutParams(titleParams);
         titleView.setPadding(titleViewPaddingHorizontal, titleViewPaddingVertical, titleViewPaddingHorizontal, titleViewPaddingVertical);
         titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         titleView.setVisibility(View.GONE);
@@ -814,8 +827,10 @@ public class PlayerActivity extends Activity {
                     view.setPadding(0, windowInsets.getSystemWindowInsetTop(),0, windowInsets.getSystemWindowInsetBottom());
                 }
 
+                // Calculate bottom offset to position title above bottom bar
+                int titleBottomOffset = Utils.dpToPx(55); // Offset from bottom of screen in dp
                 Utils.setViewParams(titleView, paddingLeft + titleViewPaddingHorizontal, titleViewPaddingVertical, paddingRight + titleViewPaddingHorizontal, titleViewPaddingVertical,
-                        marginLeft, windowInsets.getSystemWindowInsetTop(), marginRight, 0);
+                        marginLeft, windowInsets.getSystemWindowInsetTop(), marginRight, titleBottomOffset);
 
                 View insetsBottomBar = findViewById(R.id.exo_bottom_bar);
                 if (insetsBottomBar != null) {

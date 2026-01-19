@@ -13,3 +13,4 @@ may have different lengths.
 
 UI button gradient is located in the file button_focus_indicator.xml
 
+Title positioning is set in PlayerActivity.java at the line int titleBottomOffset = Utils.dpToPx(45);.
