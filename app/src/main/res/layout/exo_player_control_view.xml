@@ -33,7 +33,7 @@
 
       <ImageButton android:id="@+id/exo_play_pause"
           style="@style/ExoStyledControls.Button.Bottom"
-          android:background="@drawable/button_focus_red"/>
+          android:background="@drawable/button_focus_indicator"/>
 
       <TextView android:id="@+id/exo_position"
           style="@style/ExoStyledControls.TimeText.Position"/>
@@ -63,15 +63,15 @@
 
       <ImageButton android:id="@+id/exo_subtitle"
           style="@style/ExoStyledControls.Button.Bottom.CC"
-          android:background="@drawable/button_focus_red"/>
+          android:background="@drawable/button_focus_indicator"/>
 
       <ImageButton android:id="@+id/exo_settings"
           style="@style/ExoStyledControls.Button.Bottom.Settings"
-          android:background="@drawable/button_focus_red"/>
+          android:background="@drawable/button_focus_indicator"/>
 
       <ImageButton android:id="@+id/exo_fullscreen"
           style="@style/ExoStyledControls.Button.Bottom.FullScreen"
-          android:background="@drawable/button_focus_red"/>
+          android:background="@drawable/button_focus_indicator"/>
 
       <ImageButton android:id="@+id/exo_overflow_show"
           style="@style/ExoStyledControls.Button.Bottom.OverflowShow"/>

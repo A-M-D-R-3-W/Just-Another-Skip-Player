@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Focused state - small circular gradient -->
+    <item android:state_focused="true">
+        <shape android:shape="oval">
+            <gradient
+                android:type="radial"
+                android:centerX="0.5"
+                android:centerY="0.5"
+                android:gradientRadius="70%"
+                android:startColor="#60FFFFFF"
+                android:centerColor="#30FFFFFF"
+                android:endColor="#00FFFFFF" />
+        </shape>
+    </item>
+    <!-- Default state - transparent -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#00000000" />
+        </shape>
+    </item>
+</selector>

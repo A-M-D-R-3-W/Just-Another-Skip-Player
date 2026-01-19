@@ -10,3 +10,6 @@ NOTE: the svg's must be deleted once the xml conversion is created.
 For intro beginning / ending, maybe indicate the start and stop on a
 screenshot of the current frame instead of a time, as different streams
 may have different lengths.
+
+UI button gradient is located in the file button_focus_indicator.xml
+
