@@ -1,5 +1,7 @@
 package com.brouken.player.utils
 
+import java.net.URLDecoder
+import java.nio.charset.StandardCharsets
 import java.util.regex.Pattern
 
 object NameCleaner {
@@ -172,22 +174,22 @@ object NameCleaner {
         // Remove file extensions
         val beforeExt = name
         name = name.replace(Regex("\\.(mkv|mp4|avi|webm|mov)$", RegexOption.IGNORE_CASE), "")
-        DebugLogger.log("NameCleaner", "  4a. Removed extension: '$beforeExt' ’ '$name'")
+        DebugLogger.log("NameCleaner", "  4a. Removed extension: '$beforeExt' ï¿½ '$name'")
         
         // Replace dots/underscores with spaces
         val beforeDots = name
         name = name.replace(".", " ").replace("_", " ")
-        DebugLogger.log("NameCleaner", "  4b. Dots/underscores ’ spaces: '$beforeDots' ’ '$name'")
+        DebugLogger.log("NameCleaner", "  4b. Dots/underscores ï¿½ spaces: '$beforeDots' ï¿½ '$name'")
         
         // Collapse multiple spaces
         val beforeSpaces = name
         name = name.replace(Regex("\\s+"), " ").trim()
-        DebugLogger.log("NameCleaner", "  4c. Collapsed spaces: '$beforeSpaces' ’ '$name'")
+        DebugLogger.log("NameCleaner", "  4c. Collapsed spaces: '$beforeSpaces' ï¿½ '$name'")
         
         // Remove trailing hyphens
         val beforeHyphens = name
         name = name.replace(Regex("[-]+$"), "").trim()
-        DebugLogger.log("NameCleaner", "  4d. Removed trailing hyphens: '$beforeHyphens' ’ '$name'")
+        DebugLogger.log("NameCleaner", "  4d. Removed trailing hyphens: '$beforeHyphens' ï¿½ '$name'")
         
         DebugLogger.log("NameCleaner", "========================================")
         DebugLogger.log("NameCleaner", "FINAL RESULT: '$name' S$season E$episode")
@@ -195,5 +197,184 @@ object NameCleaner {
         DebugLogger.log("NameCleaner", "========================================")
         
         return CleanResult(name, season, episode, year, isAnime)
+    }
+    
+    /**
+     * Extract and format display title from filename using tokenizer approach
+     * Returns formatted string like:
+     * - "Movie Title (2023)" for movies
+     * - "Show Name S01E01" for TV shows
+     */
+    fun extractDisplayTitle(filename: String): String {
+        // First check if it's a TV show with season/episode
+        val tvResult = extractTVInfo(filename)
+        if (tvResult != null) {
+            val (title, season, episode) = tvResult
+            val cleanTitle = extractTitleFromTokens(title)
+            if (cleanTitle.isNotEmpty()) {
+                return String.format("%s S%02dE%02d", cleanTitle, season, episode)
+            }
+        }
+        
+        // For movies, extract title using tokenizer
+        val movieTitle = extractTitleFromTokens(filename)
+        if (movieTitle.isNotEmpty()) {
+            // Try to extract year
+            val year = extractYear(filename)
+            return if (year != null) {
+                String.format("%s (%d)", movieTitle, year)
+            } else {
+                movieTitle
+            }
+        }
+        
+        // Fallback to original filename
+        return filename
+    }
+    
+    /**
+     * Extract TV show info (title, season, episode) from filename
+     */
+    private fun extractTVInfo(filename: String): Triple<String, Int, Int>? {
+        // Try S01E01 pattern
+        var matcher = PATTERN_S_E.matcher(filename)
+        if (matcher.find()) {
+            return Triple(matcher.group(1), matcher.group(2).toInt(), matcher.group(3).toInt())
+        }
+        
+        // Try 1x01 pattern
+        matcher = PATTERN_X.matcher(filename)
+        if (matcher.find()) {
+            return Triple(matcher.group(1), matcher.group(2).toInt(), matcher.group(3).toInt())
+        }
+        
+        return null
+    }
+    
+    /**
+     * Extract year from filename
+     */
+    private fun extractYear(filename: String): Int? {
+        val matcher = PATTERN_YEAR.matcher(filename)
+        if (matcher.find()) {
+            val year = matcher.group(2).toInt()
+            if (year in 1900..2099) {
+                return year
+            }
+        }
+        return null
+    }
+    
+    /**
+     * Extract title from filename using tokenizer approach
+     * Stops at boundary tokens (year, resolution, codec, source, etc.)
+     */
+    private fun extractTitleFromTokens(filename: String): String {
+        // Try to strip any URI/path prefix and decode %2F etc so we only tokenize the real name.
+        // Examples we want to handle:
+        // - "/storage/.../Downloads/Sopranos.S01E01.1080p.mkv"
+        // - "content://.../file%2FDownload%2FSopranos.S01E01.1080p.mkv"
+        // - "file:///.../Sopranos.S01E01.1080p.mkv"
+        var base = filename
+            .substringBefore('?') // drop query params if present
+            .substringAfterLast('/') // last path segment (may still be url-encoded)
+
+        base = try {
+            URLDecoder.decode(base, StandardCharsets.UTF_8.name())
+        } catch (_: Exception) {
+            base
+        }
+
+        // If decode produced embedded slashes (e.g. "file/Download/Sopranos..."), keep only the final segment
+        base = base.substringAfterLast('/')
+
+        // Remove extension (if any)
+        base = base.substringBeforeLast(".")
+        
+        // Remove trailing bracket groups [YTS], {rarbg}, (www.site.com)
+        base = base.replace(Regex("\\s*[\\[\\{].*[\\]\\}]\\s*$"), "")
+        
+        // Normalize separators
+        var s = base
+        s = s.replace("_", " ")
+        s = s.replace(".", " ")
+        s = s.replace("-", " - ") // Keep group delimiter visible
+        s = s.replace(Regex("\\s+"), " ").trim()
+        
+        // Split into tokens
+        val tokens = s.split(" ").filter { it.isNotEmpty() }
+        
+        // Remove group suffix if present (e.g., "Title ... -GROUP")
+        val processedTokens = if (tokens.lastOrNull()?.startsWith("-") == true) {
+            val dashIndex = tokens.indexOfLast { it.startsWith("-") }
+            if (dashIndex > 0) tokens.subList(0, dashIndex) else tokens
+        } else {
+            tokens
+        }
+        
+        // Boundary words that indicate end of title
+        val boundaryWords = setOf(
+            // Source/type
+            "webrip", "web", "webdl", "web-dl", "web-dlrip", "hdtv", "dvdrip", "bdrip", 
+            "bluray", "blu-ray", "remux", "hdrip", "cam", "telesync", "ts", "tc",
+            // Resolution
+            "480p", "576p", "720p", "1080p", "1440p", "2160p", "4k", "8k", "uhd", "hd", "sd",
+            // Codecs
+            "x264", "x265", "h264", "h265", "hevc", "avc", "divx", "xvid", "vp9", "av1", "h.264", "h.265",
+            // Audio
+            "aac", "ac3", "eac3", "ddp", "dts", "truehd", "atmos", "mp3", "flac", "7.1", "5.1", "2.0",
+            "ddp5.1", "dts-hd", "truehd7.1",
+            // Misc tags
+            "hdr", "hdr10", "dv", "dolbyvision", "10bit", "8bit", "remastered", "extended", 
+            "unrated", "directors", "director's", "cut", "proper", "repack", "limited", 
+            "internal", "subbed", "dubbed", "multisub", "nf", "amzn", "hmax", "dsnp"
+        )
+        
+        // Helper functions
+        fun isYear(token: String): Boolean {
+            return token.matches(Regex("\\d{4}")) && token.toIntOrNull()?.let { it in 1900..2099 } == true
+        }
+        
+        fun isBoundaryToken(token: String): Boolean {
+            val lower = token.lowercase()
+            if (lower in boundaryWords) return true
+            if (isYear(lower)) return true
+            if (lower.matches(Regex("\\d+p"))) return true // Resolution pattern
+            if (lower.matches(Regex("ddp\\d+\\.\\d+"))) return true // Audio pattern like ddp5.1
+            if (lower.matches(Regex("(x|h)\\.?\\d+"))) return true // Codec pattern
+            return false
+        }
+        
+        // Walk left-to-right, take tokens until boundary
+        val titleTokens = mutableListOf<String>()
+        for (token in processedTokens) {
+            if (token.isEmpty()) continue
+            
+            // Check if token is a boundary
+            if (isBoundaryToken(token)) {
+                break
+            }
+            
+            // Check for year in parentheses: "(2023)"
+            if (token.startsWith("(") && token.endsWith(")")) {
+                val inner = token.removePrefix("(").removeSuffix(")")
+                if (isYear(inner)) {
+                    break
+                }
+            }
+            
+            titleTokens.add(token)
+        }
+        
+        if (titleTokens.isEmpty()) {
+            return ""
+        }
+        
+        // Join and clean up
+        var title = titleTokens.joinToString(" ")
+        title = title.replace(Regex("^[\"'\\s]+|[\"'\\s]+$"), "") // Remove surrounding quotes/parens
+        title = title.trim()
+        
+        return title
     }
 }

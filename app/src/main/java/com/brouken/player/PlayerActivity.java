@@ -1874,21 +1874,27 @@ public class PlayerActivity extends Activity {
                     apiTitle,
                     mPrefs.mediaUri,
                     resolvedName -> runOnUiThread(() -> {
+                        String displayTitle;
                         if (resolvedName != null && !resolvedName.isEmpty()) {
-                            titleView.setText(resolvedName);
+                            displayTitle = com.brouken.player.utils.NameCleaner.INSTANCE.extractDisplayTitle(resolvedName);
                         } else if (apiTitle != null) {
-                            titleView.setText(apiTitle);
+                            displayTitle = com.brouken.player.utils.NameCleaner.INSTANCE.extractDisplayTitle(apiTitle);
                         } else {
-                            titleView.setText(Utils.getFileName(this, mPrefs.mediaUri));
+                            String fileName = Utils.getFileName(this, mPrefs.mediaUri);
+                            displayTitle = com.brouken.player.utils.NameCleaner.INSTANCE.extractDisplayTitle(fileName);
                         }
+                        titleView.setText(displayTitle);
                     })
                 );
             } else if (apiTitle != null) {
                 // Use API-provided title (e.g., "S1:E1 - Pilot" from Stremio)
-                titleView.setText(apiTitle);
+                String displayTitle = com.brouken.player.utils.NameCleaner.INSTANCE.extractDisplayTitle(apiTitle);
+                titleView.setText(displayTitle);
             } else {
-                // Fallback to filename
-                titleView.setText(Utils.getFileName(this, mPrefs.mediaUri));
+                // Fallback to filename - extract clean title
+                String fileName = Utils.getFileName(this, mPrefs.mediaUri);
+                String displayTitle = com.brouken.player.utils.NameCleaner.INSTANCE.extractDisplayTitle(fileName);
+                titleView.setText(displayTitle);
             }
             titleView.setVisibility(View.VISIBLE);
 
